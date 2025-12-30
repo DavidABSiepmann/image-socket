@@ -1,0 +1,15 @@
+# qmldir for local qml module
+# Lists QML types so they can be imported as a module (e.g., `import ImageSocket 1.0`)
+
+module ImageSocket
+
+ControlPanel 1.0 ControlPanel.qml
+StatusBar 1.0 StatusBar.qml
+StyledButton 1.0 StyledButton.qml
+Theme 1.0 Theme.qml
+VideoDisplayArea 1.0 VideoDisplayArea.qml
+InfoOverlay 1.0 InfoOverlay.qml
+ToastNotification 1.0 ToastNotification.qml
+DiagnosticsPanel 1.0 DiagnosticsPanel.qml
+ClientsPanel 1.0 ClientsPanel.qml
+singleton EventMessages 1.0 EventMessages.qml

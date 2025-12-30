@@ -1,0 +1,19 @@
+<!DOCTYPE RCC>
+<RCC>
+  <qresource prefix="/">
+    <file>main.qml</file>
+  </qresource>
+  <qresource prefix="/ImageSocket">
+    <file alias="ControlPanel.qml">qml/ControlPanel.qml</file>
+    <file alias="StatusBar.qml">qml/StatusBar.qml</file>
+    <file alias="StyledButton.qml">qml/StyledButton.qml</file>
+    <file alias="Theme.qml">qml/Theme.qml</file>
+    <file alias="VideoDisplayArea.qml">qml/VideoDisplayArea.qml</file>
+    <file alias="DiagnosticsPanel.qml">qml/DiagnosticsPanel.qml</file>
+    <file alias="ClientsPanel.qml">qml/ClientsPanel.qml</file>
+    <file alias="EventMessages.qml">qml/EventMessages.qml</file>
+    <file alias="qmldir">qml/qmldir</file>
+    <file alias="InfoOverlay.qml">qml/InfoOverlay.qml</file>
+    <file alias="ToastNotification.qml">qml/ToastNotification.qml</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,18 @@
+/**
+ * qmldir
+ * 
+ * Qt module definition file for test fixtures.
+ * Enables simple imports: import "tests.qml.fixtures" 1.0
+ * 
+ * This allows tests to import fixtures without verbose paths:
+ *   import "../../fixtures" as Fixtures
+ *   Fixtures.MockBackend { ... }
+ */
+
+module tests.qml.fixtures
+
+MockBackend 1.0 MockBackend.qml
+TestRoot 1.0 TestRoot.qml
+ComponentLoader 1.0 ComponentLoader.qml
+SignalRecorder 1.0 SignalRecorder.qml
+AnimationHelper 1.0 AnimationHelper.qml

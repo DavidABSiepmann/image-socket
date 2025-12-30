@@ -1,0 +1,100 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    name: Build & Test (${{ matrix.os }}, ${{ matrix.compiler }})
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        compiler: [gcc, clang]
+
+    env:
+      CCACHE_DIR: ${{ github.workspace }}/.ccache
+      CCACHE_COMPRESS: "true"
+      CCACHE_MAXSIZE: 300M
+      CTEST_OUTPUT_ON_FAILURE: "1"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential \
+            clang \
+            cmake \
+            ninja-build \
+            ccache \
+            pkg-config \
+            unzip \
+            xvfb \
+            libopencv-dev \
+            libboost-all-dev \
+            protobuf-compiler \
+            libprotobuf-dev \
+            qtbase5-dev \
+            qtdeclarative5-dev \
+            qtwebsockets5-dev \
+            qttools5-dev \
+            qttools5-dev-tools \
+            qml-module-qtquick2 \
+            qml-module-qtquick-controls2 \
+            qml-module-qttest \
+            qml-module-qtqml-models2 \
+            libgl1-mesa-dev \
+            libegl1-mesa-dev
+
+      - name: Select compiler
+        shell: bash
+        run: |
+          if [[ "${{ matrix.compiler }}" == "clang" ]]; then
+            echo "CC=clang" >> $GITHUB_ENV
+            echo "CXX=clang++" >> $GITHUB_ENV
+          else
+            echo "CC=gcc" >> $GITHUB_ENV
+            echo "CXX=g++" >> $GITHUB_ENV
+          fi
+
+      - name: Cache ccache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ccache-${{ runner.os }}-${{ matrix.compiler }}-${{ hashFiles('**/CMakeLists.txt', '**/*.cmake', '**/*.cpp', '**/*.h', '**/*.qml', '**/*.proto') }}
+          restore-keys: |
+            ccache-${{ runner.os }}-${{ matrix.compiler }}-
+
+      - name: Configure (CMake)
+        shell: bash
+        run: |
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_C_COMPILER="$CC" \
+            -DCMAKE_CXX_COMPILER="$CXX" \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+
+      - name: Build
+        shell: bash
+        run: |
+          cmake --build build --parallel
+
+      - name: Show ccache stats
+        shell: bash
+        run: |
+          ccache --show-stats || true
+
+      - name: Test (ctest)
+        shell: bash
+        run: |
+          # QML/QtQuick tests may require a display; run under Xvfb.
+          xvfb-run -a ctest --test-dir build --output-on-failure --no-tests=error

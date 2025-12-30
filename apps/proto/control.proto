@@ -1,0 +1,29 @@
+syntax = "proto3";
+option optimize_for = LITE_RUNTIME;
+package imagesocket.control;
+
+// Command types used for control messages between client and server
+enum CommandType {
+  UNKNOWN = 0;
+  PAUSE = 1;
+  RESUME = 2;
+  ID = 3;
+  REQUEST_RESUME = 4;
+  SET_FPS = 5;
+  SET_QUALITY = 6;
+  SUBSCRIBE = 7;
+  UNSUBSCRIBE = 8;
+  REQUEST_ALIAS = 9; // server asks client to reply with its alias
+  ALIAS = 10;        // client replies with alias string
+}
+
+// ControlMessage: carries a command and optional parameters
+message ControlMessage {
+  CommandType type = 1;
+  int32 client_id = 2;
+  int32 fps = 3;
+  int32 quality = 4;
+  string reason = 5;
+  int64 timestamp_ms = 6;
+  string alias = 7; // human-friendly client alias (optional)
+}
