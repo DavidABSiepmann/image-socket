@@ -1,6 +1,6 @@
 # Image Socket — Real-Time Streaming PoC
 
-[![CI](https://github.com/username/image-socket/actions/workflows/ci.yml/badge.svg)](https://github.com/username/image-socket/actions/workflows/ci.yml)
+[![CI](https://github.com/DavidABSiepmann/image-socket/actions/workflows/ci.yml/badge.svg)](https://github.com/DavidABSiepmann/image-socket/actions/workflows/ci.yml)
 
 A **Proof of Concept** validating real-time image streaming architecture with Qt 5.15, WebSocket, Protocol Buffers, and QML.
 
