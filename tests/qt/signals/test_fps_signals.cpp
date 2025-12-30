@@ -81,8 +81,8 @@ private slots:
         QTRY_COMPARE_WITH_TIMEOUT(bridge.serverState(), 
                                  ImageServerBridge::Running, 2000);
 
-        // Set and verify FPS
-        bridge.setFps(24);
+        // Set configured FPS (doesn't require an active client)
+        bridge.setConfiguredFps(24);
         
         // Allow state change
         qt_test::EventLoopSpinner::processEvents();

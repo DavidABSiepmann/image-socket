@@ -51,6 +51,8 @@ jobs:
             qml-module-qtquick-controls2 \
             qml-module-qttest \
             qml-module-qtqml-models2 \
+            qml-module-qtgraphicaleffects \
+            qml-module-qtquick-layouts \
             libgl1-mesa-dev \
             libegl1-mesa-dev
 
