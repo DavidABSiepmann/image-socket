@@ -44,7 +44,7 @@ jobs:
             libprotobuf-dev \
             qtbase5-dev \
             qtdeclarative5-dev \
-            qtwebsockets5-dev \
+            libqt5websockets5-dev \
             qttools5-dev \
             qttools5-dev-tools \
             qml-module-qtquick2 \
